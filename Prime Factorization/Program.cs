@@ -18,14 +18,16 @@ namespace Prime_Factorization
             if (CheckIfPrime(number))
                 Console.WriteLine("Input number is prime");
             else
-           decomposition = Decompose(number);
-            Console.Write($"{number}=");
-            for (int i = 0; i < decomposition.Count; i++)
             {
-                if (i != decomposition.Count-1)
-                    Console.Write($"{decomposition[i]}*");
-                else
-                    Console.WriteLine(decomposition[i]);
+                decomposition = Decompose(number);
+                Console.Write($"{number}=");
+                for (int i = 0; i < decomposition.Count; i++)
+                {
+                    if (i != decomposition.Count - 1)
+                        Console.Write($"{decomposition[i]}*");
+                    else
+                        Console.WriteLine(decomposition[i]);
+                }
             }
             Console.ReadLine();
         }
