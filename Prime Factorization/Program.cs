@@ -14,7 +14,19 @@ namespace Prime_Factorization
             Console.WriteLine("Write a number that you want to decompose:");
             string userInputString = Console.ReadLine();
             BigInteger number = ValidateInput(userInputString);
-            Console.WriteLine("Input number is prime:{0}", CheckIfPrime(number));
+            List<BigInteger> decomposition = new List<BigInteger>();
+            if (CheckIfPrime(number))
+                Console.WriteLine("Input number is prime");
+            else
+           decomposition = Decompose(number);
+            Console.Write($"{number}=");
+            for (int i = 0; i < decomposition.Count; i++)
+            {
+                if (i != decomposition.Count-1)
+                    Console.Write($"{decomposition[i]}*");
+                else
+                    Console.WriteLine(decomposition[i]);
+            }
             Console.ReadLine();
         }
 
@@ -40,7 +52,7 @@ namespace Prime_Factorization
 
         private static BigInteger ValidateInput(string userInputString)
         {
-            BigInteger numberOfNumbers;
+            BigInteger numberOfNumbers = new BigInteger();
             while ((!BigInteger.TryParse(userInputString, out numberOfNumbers)) || (numberOfNumbers <= 0))
             {
                 Console.Write("Write correct value:");
@@ -48,5 +60,38 @@ namespace Prime_Factorization
             }
             return numberOfNumbers;
         }
+
+        private static List<BigInteger> Decompose(BigInteger number)
+        {
+            List<BigInteger> primeNumbers = new List<BigInteger>();
+            List<BigInteger> primes = new List<BigInteger>();
+            primes.Add(2);
+            BigInteger i = primes.Last<BigInteger>();
+            int  nextPrime = 0;
+            while (!CheckIfPrime(number))
+            {
+                if (CheckIfPrime(i) && BigInteger.Remainder(number, i) == 0)
+                {
+                    if (i > primes.Last<BigInteger>())
+                        primes.Add(i);
+                    primeNumbers.Add(i);
+                    number = BigInteger.Divide(number, i);
+                    i = 2;
+                }
+                else
+                {
+                    if (nextPrime+1>primes.Count)
+                        i++;
+                    else
+                        i = primes[nextPrime];
+                        nextPrime++;
+                }
+            }
+            primeNumbers.Add(number);
+
+            return primeNumbers;
+        } 
+
     }
 }
+
