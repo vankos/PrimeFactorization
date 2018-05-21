@@ -44,7 +44,7 @@ namespace Prime_Factorization
                 {
                     if (BigInteger.Remainder(number, i) == 0 || BigInteger.Remainder(number, i + 2) == 0)
                         return false;
-                    i++;
+                    i+=6;
                 }
                 return true;
             }
@@ -63,6 +63,7 @@ namespace Prime_Factorization
 
         private static List<BigInteger> Decompose(BigInteger number)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             List<BigInteger> primeNumbers = new List<BigInteger>();
             List<BigInteger> primes = new List<BigInteger>();
             primes.Add(2);
@@ -80,15 +81,18 @@ namespace Prime_Factorization
                 }
                 else
                 {
-                    if (nextPrime+1>primes.Count)
+                    if (nextPrime + 1 > primes.Count)
                         i++;
                     else
+                    {
                         i = primes[nextPrime];
                         nextPrime++;
+                    }
                 }
             }
             primeNumbers.Add(number);
-
+            watch.Stop();
+            Console.WriteLine("Calculation time is:{0}ms ({1}s)", watch.ElapsedMilliseconds, watch.ElapsedMilliseconds / 1000);
             return primeNumbers;
         } 
 
