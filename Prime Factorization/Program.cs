@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using Utility;
 
 namespace Prime_Factorization
 {
@@ -65,6 +66,7 @@ namespace Prime_Factorization
 
         private static List<BigInteger> Decompose(BigInteger number)
         {
+            Timer.StartTimer();
             var watch = System.Diagnostics.Stopwatch.StartNew();
             List<BigInteger> primeNumbers = new List<BigInteger>();
             List<BigInteger> primes = new List<BigInteger>();
@@ -93,8 +95,7 @@ namespace Prime_Factorization
                 }
             }
             primeNumbers.Add(number);
-            watch.Stop();
-            Console.WriteLine("Calculation time is:{0}ms ({1}s)", watch.ElapsedMilliseconds, watch.ElapsedMilliseconds / 1000);
+            Timer.StopTimer(true);
             return primeNumbers;
         } 
 
